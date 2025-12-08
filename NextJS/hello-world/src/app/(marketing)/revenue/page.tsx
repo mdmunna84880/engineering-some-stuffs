@@ -1,9 +1,9 @@
 
 
-export default function Home() {
+export default function Revenue() {
   return (
     <h1 className="text-2xl">
-      Hellow World
+      Revenu page
     </h1>
   );
 }

@@ -1,8 +1,19 @@
+import {notFound} from "next/navigation";
+
+function getRandomInt(number:number){
+    return Math.floor(Math.random()*number);
+}
+
 async function ReviewDetails({params}:{params: Promise<{productId: string; reviewId: string}>}) {
     const {productId, reviewId} = await params;
-    return ( 
-        <h1>Review {reviewId} Details Page for Product {productId}</h1>
-     );
+    if(getRandomInt(10) < 2)
+        throw new Error("Simulated error in review details page");
+
+    if(Number(reviewId) > 1000){
+        return <h1>Product {productId} review {reviewId}</h1>
+    }else{
+        return notFound();
+    }
 }
 
 export default ReviewDetails;

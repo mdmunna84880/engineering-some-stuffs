@@ -4,4 +4,10 @@ function FirstBlog() {
      );
 }
 
+export const metadata = {
+    title: {
+        absolute: "My First Blog Post"
+    }
+}
+
 export default FirstBlog;
