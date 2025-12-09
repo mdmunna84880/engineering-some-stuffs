@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useOptimistic, useState, useRef, startTransition } from "react";
+import { deliverMessage } from "./actions.js";
 
-function App() {
-  const [count, setCount] = useState(0)
+function Thread({ messages, sendMessageAction }) {
+  const formRef = useRef();
+  function formAction(formData) {
+    addOptimisticMessage(formData.get("message"));
+    formRef.current.reset();
+    startTransition(async () => {
+      await sendMessageAction(formData);
+    });
+  }
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic(
+    messages,
+    (state, newMessage) => [
+      {
+        text: newMessage,
+        sending: true
+      },
+      ...state,
+    ]
+  );
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form action={formAction} ref={formRef}>
+        <input type="text" name="message" placeholder="Hello!" />
+        <button type="submit">Send</button>
+      </form>
+      {optimisticMessages.map((message, index) => (
+        <div key={index}>
+          {message.text}
+          {!!message.sending && <small> (Sending...)</small>}
+        </div>
+      ))}
+      
     </>
-  )
+  );
 }
 
-export default App
+export default function App() {
+  const [messages, setMessages] = useState([
+    { text: "Hello there!", sending: false, key: 1 }
+  ]);
+  async function sendMessageAction(formData) {
+    const sentMessage = await deliverMessage(formData.get("message"));
+    startTransition(() => {
+      setMessages((messages) => [{ text: sentMessage }, ...messages]);
+    })
+  }
+  return <Thread messages={messages} sendMessageAction={sendMessageAction} />;
+}
