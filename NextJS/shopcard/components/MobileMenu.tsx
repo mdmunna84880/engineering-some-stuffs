@@ -8,12 +8,12 @@ function MobileMenu() {
 
     return ( 
         <>
-            <button className="hover:text-dark-color hoverEffect md:hidden" onClick={()=>setIsOpen(!isOpen)}>
-                <AlignLeft />
+            <div className="hover:text-dark-color hoverEffect md:hidden">
+                <AlignLeft onClick={()=>setIsOpen(!isOpen)} className="hover:text-shop-light-green cursor-pointer"/>
                 <div className="md:hidden">
                     <SideMenu isOpen={isOpen} onClose={()=>setIsOpen(false)} />
                 </div>
-            </button>
+            </div>
         </>
      );
 }
