@@ -56,7 +56,7 @@ function SocialMedia({
             <TooltipTrigger asChild>
               <Link href={item.href} className={cn("p-2 border rounded-full hover:text-white hover:border-shop-light-green hoverEffect", iconClassName)}>{item.icon}</Link>
             </TooltipTrigger>
-            <TooltipContent className={cn(`bg-white text-dark-color font-semibold`, tooltipClassName)}>
+            <TooltipContent className={cn(`bg-white text-dark-color font-semibold p-2 rounded-sm`, tooltipClassName)}>
                 {item.title}
             </TooltipContent>
           </Tooltip>

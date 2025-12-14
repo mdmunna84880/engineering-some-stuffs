@@ -1,8 +1,10 @@
+import Container from "@/components/Container";
+import HomeBanner from "@/components/HomeBaner";
 
 export default function Home() {
   return (
-    <div>
-      <h2>Home</h2>
-    </div>
+    <Container className="bg-shop-light-pink">
+      <HomeBanner />
+    </Container>
   );
 }
