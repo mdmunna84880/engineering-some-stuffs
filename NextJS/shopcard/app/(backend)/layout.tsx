@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import "../(frontend)/globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 
@@ -17,23 +15,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function StudioLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {children: React.ReactNode}) {
   return (
     <ClerkProvider>
         <html lang="en">
-      <body className="font-poppins antialiased">
-        <div className="flex flex-col min-h-screen">
-            <Header />
-        <main className="flex-1">
-            {children}
-        </main>
-        <Footer />
-        </div>
-      </body>
+        <body className="font-poppins antialiased">
+        {children}
+        </body>
     </html>
     </ClerkProvider>
   );
