@@ -48,8 +48,6 @@ public class CountInv{
 
     public static void main(String[] args) {
         int[] arr = {3, 3, 1, 2};
-
-
         System.out.println(countInversion(arr, 0, arr.length-1));   
     }
 }
