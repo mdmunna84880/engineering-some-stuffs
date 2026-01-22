@@ -4,7 +4,7 @@ const mongoose=require("mongoose")
 const cors = require("cors")
 
 //mongodb+srv://book:book@cluster0.uvydzhs.mongodb.net/
-
+app.use(express.static("../fe/dist"));
 app.use(express.json())
 app.use(cors())
 
@@ -242,6 +242,8 @@ app.get("/booking/:emailId", async(req, res)=>{
         console.log(err);
     }
 })
+
+app.get("*",(req,res)=>{res.sendFile(path.resolve(__dirname,"fe","dist","index.html"))});
 
 app.listen(8888,()=>{
     console.log("Server is running")
