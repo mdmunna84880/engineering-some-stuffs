@@ -23,7 +23,7 @@ function partition(arr, si, ei){
 
     i++;
 
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [arr[i], arr[ei]] = [pivot, arr[i]];
     return i;
 }
 const arr = [6, 3, 9, 5, 2, 8, -5];
