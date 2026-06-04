@@ -1,0 +1,1 @@
+Practiced building stop-watch with some functionality like pause, start and reset.
